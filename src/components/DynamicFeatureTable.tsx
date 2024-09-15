@@ -8,6 +8,11 @@ import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { useCurrentCategory } from './CategoryProvider'
 import { convertFileSrc } from '@tauri-apps/api/core'
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 type DataPoint = Record<string, Value>
 
@@ -34,7 +39,14 @@ function renderCell(key: string, cell: Value) {
   if (key == '_imagePath' && isString(cell)) {
     const imgPath = convertFileSrc(cell);
     return (
-      <img src={imgPath}/>
+      <HoverCard>
+        <HoverCardTrigger>
+          <img src={imgPath}/>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-1/2" side="right">
+          <img src={imgPath}/>
+        </HoverCardContent>
+      </HoverCard>
     )
   }
   switch (typeof cell) {
