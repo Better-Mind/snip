@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Value } from '@/services/groq.service'
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from './ui/badge'
-import { Aperture, BarChart, Feather, LightbulbIcon, Search } from 'lucide-react'
+import { ArrowUpFromLine, Ellipsis, Star, Aperture, BarChart, Feather, LightbulbIcon, Search } from 'lucide-react'
 import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { useCurrentCategory } from './CategoryProvider'
@@ -90,45 +90,56 @@ export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureT
 
   return (
   <div>
-    <div>
-      <div className="flex flex-row justify-between">
-        <div className="justify-start mb-4 shrink-0">
-          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{currentCategory}</h1>
-        </div>
-        <div className="justify-end mb-4 shrink-0">
-          <div className="flex flex-col justify-end">
-            <Button className="ml-auto" variant="link">Export</Button>
-          </div>
-        </div>
+    <div className="justify-end shrink-0 mt-1 mx-1">
+      <div className="flex flex-row justify-end">
+        <Button className="px-2" variant="link">
+          <ArrowUpFromLine className="h-4 w-4 pr-1" />
+          Export
+        </Button>
+        <Button className="px-2" variant="link">
+          <Star className="h-4 w-4" />
+        </Button>
+        <Button className="px-2" variant="link">
+          <Ellipsis className="h-4 w-4" />
+        </Button>
       </div>
     </div>
 
-    <Card>
-      <div className="w-full overflow-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {allFeatures.map(feature => (
-                <TableHead key={feature} className="px-4 py-2">
-                  {feature}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {datapoints.map((datapoint, index) => (
-              <TableRow key={index}>
+    <div className="mx-20">
+
+      <div>
+        <div className="justify-start mt-6 mb-4 shrink-0">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{currentCategory}</h1>
+        </div>
+      </div>
+
+      <Card>
+        <div className="w-full overflow-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
                 {allFeatures.map(feature => (
-                  <TableCell key={feature} className="px-4 py-2">
-                    {renderCell(datapoint[feature])}
-                  </TableCell>
+                  <TableHead key={feature} className="px-4 py-2">
+                    {feature}
+                  </TableHead>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </Card>
+            </TableHeader>
+            <TableBody>
+              {datapoints.map((datapoint, index) => (
+                <TableRow key={index}>
+                  {allFeatures.map(feature => (
+                    <TableCell key={feature} className="px-4 py-2">
+                      {renderCell(datapoint[feature])}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </Card>
+    </div>
   </div>
   )
 }

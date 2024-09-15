@@ -36,7 +36,7 @@ function App() {
       <div className="flex h-full">
         {/* <ThemeToggle className="absolute top-1 right-1 z-10" /> */}
         <CategorySidebar/>
-        <div className="flex flex-col h-full min-w-0 grow mx-20 pt-10 pb-10">
+        <div className="flex flex-col h-full min-w-0 grow mx-6 pt-2 pb-10">
           <div className="overflow-y-auto min-h-0 grow">
             <InnerComp></InnerComp>
           </div>
