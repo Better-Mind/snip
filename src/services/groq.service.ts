@@ -135,13 +135,14 @@ export async function imageFeatures(path: string, history: FeatureHistorySchema,
     },
   ]
 
-  let _chatHistory = history.map((entry) => ({
+  let chatHistory = history.map((entry) => ({
     role: "user",
     content: JSON.stringify(entry)
   }));
-  let chatHistory = _chatHistory[0] || [];
+  if (chatHistory.length > 0) {
+    messages.push(chatHistory[0]);
+  }
 
-  messages.push(chatHistory);
   messages.push({ 
     role: "user",
     content: [
