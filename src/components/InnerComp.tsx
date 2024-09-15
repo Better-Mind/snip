@@ -26,6 +26,7 @@ export function InnerComp() {
 	  // console.log(description);
 	  const res = await imageFeatures(image_path, history, description || "");
 	  console.log(res);
+	  res.imagePath = image_path;
 	  // add the result to history
 	  if (currentCategory) {
 		setHistoryMap((prev) => ({
@@ -49,13 +50,13 @@ export function InnerComp() {
 		unlisten.then((fn) => fn());
 	  };
 	}, []);
-  
+
 	useEffect(() => {
 	  const history = historyMap[currentCategory] || [];
 	  let rows = [];
   
 	  for (const datapoint of history) {
-		let row: {[key: string]: any} = {};
+		let row: {[key: string]: any} = {_imagePath: datapoint.imagePath};
 		for (const feature of datapoint.features) {
 		  // TODO handle each ttype specifically when rendering table 
 		  row[feature.name] = feature.value;

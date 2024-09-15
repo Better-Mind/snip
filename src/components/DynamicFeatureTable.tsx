@@ -6,6 +6,7 @@ import { Badge } from './ui/badge'
 import { Aperture, BarChart, Feather, LightbulbIcon, Search } from 'lucide-react'
 import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
+import { useCurrentCategory } from './CategoryProvider'
 
 type DataPoint = Record<string, Value>
 
@@ -44,6 +45,8 @@ function renderCell(cell: Value) {
 
 export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureTableProps) {
   // Check if datapoints is empty
+	const {currentCategory, setCurrentCategory} = useCurrentCategory();
+
   if (datapoints.length === 0) {
 	const tips = [
 		{ icon: Feather, color: "text-pink-400", text: "Just take a snapshot to get started!" },
@@ -76,19 +79,27 @@ export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureT
   const allFeatures = React.useMemo(() => {
     const featureSet = new Set<string>()
     datapoints.forEach(datapoint => {
-      Object.keys(datapoint).forEach(key => featureSet.add(key))
+      Object.keys(datapoint).forEach(key => {
+        if (!key.startsWith('_')) {
+          featureSet.add(key)
+        }
+      })
     })
-    return Array.from(featureSet)
+    return Array.from(['_imagePath', ...featureSet])
   }, [datapoints])
 
   return (
   <div>
     <div>
-      <div className="flex justify-start mb-4 shrink-0">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Keyboards</h1>
-      </div>
-      <div className="flex justify-end mb-4 shrink-0">
-        <Button className="ml-auto" variant="link">Export</Button>
+      <div className="flex flex-row justify-between">
+        <div className="justify-start mb-4 shrink-0">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{currentCategory}</h1>
+        </div>
+        <div className="justify-end mb-4 shrink-0">
+          <div className="flex flex-col justify-end">
+            <Button className="ml-auto" variant="link">Export</Button>
+          </div>
+        </div>
       </div>
     </div>
 

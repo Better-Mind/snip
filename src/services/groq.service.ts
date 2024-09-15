@@ -17,6 +17,7 @@ const model = "gpt-4o-2024-08-06";
 export type Value = string[] | string | boolean | number;
 const zFeatureSchema = z.object({
   name: z.string().describe("a concise description of this entry"),
+  imagePath: z.string().optional(),
   features: z.array(z.object({
     name: z.string().describe("display name for the feature"),
     feature: z.string().describe("feature name given in snake case"),
