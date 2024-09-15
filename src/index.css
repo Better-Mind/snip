@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* --background: 0 0% 100%; */
+    --background-alpha: 1;
+    --foreground: 224 71.4% 4.1%;
+    /* --card: 0 0% 100%; */
+    --card-alpha: 1;
+    --card-foreground: 224 71.4% 4.1%;
+    /* --popover: 0 0% 100%; */
+    --popover-alpha: 1;
+    --popover-foreground: 224 71.4% 4.1%;
+    /* --primary: 220.9 39.3% 11%; */
+    --primary-alpha: 1;
+    --primary-foreground: 210 20% 98%;
+    /* --secondary: 220 14.3% 95.9%; */
+    --secondary-alpha: 1;
+    --secondary-foreground: 220.9 39.3% 11%;
+    /* --muted: 220 14.3% 95.9%; */
+    --muted-alpha: 1;
+    --muted-foreground: 220 8.9% 46.1%;
+    /* --accent: 220 14.3% 95.9%; */
+    --accent-alpha: 1;
+    --accent-foreground: 220.9 39.3% 11%;
+    /* --destructive: 0 84.2% 60.2%; */
+    --destructive-alpha: 1;
+    --destructive-foreground: 210 20% 98%;
+    /* --border: 220 13% 91%; */
+    /* --input: 220 13% 91%; */
+    /* --ring: 224 71.4% 4.1%; */
+    /* --scrollbar: 224 71.4% 4.1%; */
+    /* --scrollbar-hover: 224 71.4% 4.1%; */
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    --background: 0 0% 98%;
+    --card: 0 0% 100%;
+    --popover: 0 0% 90%;
+    --primary: 0 0% 11%;
+    --secondary: 0 0% 90%;
+    --muted: 0 0% 90%;
+    --accent: 0 0% 95%;
+    --destructive: 0 68% 42%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 10%;
+    --scrollbar: 0 0% 40%;
+    --scrollbar-hover: 0 0% 40%;
+    color-scheme: light;
+  }
+
+  .dark {
+    /* --background: 224 71.4% 4.1%; */
+    --foreground: 210 20% 98%;
+    /* --card: 224 71.4% 4.1%; */
+    --card-foreground: 210 20% 98%;
+    /* --popover: 224 71.4% 4.1%; */
+    --popover-foreground: 210 20% 98%;
+    /* --primary: 210 20% 98%; */
+    --primary-foreground: 220.9 39.3% 11%;
+    /* --secondary: 215 27.9% 16.9%; */
+    --secondary-foreground: 210 20% 98%;
+    /* --muted: 215 27.9% 16.9%; */
+    --muted-foreground: 217.9 10.6% 64.9%;
+    /* --accent: 215 27.9% 16.9%; */
+    --accent-foreground: 210 20% 98%;
+    /* --destructive: 0 62.8% 30.6%; */
+    --destructive-foreground: 210 20% 98%;
+    /* --border: 215 27.9% 16.9%; */
+    /* --input: 215 27.9% 16.9%; */
+    /* --ring: 216 12.2% 83.9%; */
+    /* --scrollbar: 216 12.2% 83.9%; */
+    /* --scrollbar-hover: 216 12.2% 83.9%; */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    /* somewhat copied over from windows */
+    --background: 0 0% 11%;
+    --card: 0 0% 17%;
+    --popover: 0 0% 11%;
+    --primary: 210 20% 98%;
+    --secondary: 0 0% 14%;
+    --muted: 0 0% 14%;
+    --accent: 0 0% 25%;
+    --destructive: 0 68% 42%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 0 0% 100%;
+    --scrollbar: 0 0% 80%;
+    --scrollbar-hover: 0 0% 80%;
+    color-scheme: dark;
+  }
+
+  html {
+    @apply h-full overscroll-none !bg-transparent;
+    /* we set the background color of <html> in index.html to avoid a flash of white on startup*/
+    /* it's no longer needed once this css is loaded, so we remove it with !bg-transparent */
+  }
+
+  body {
+    @apply h-full overscroll-none bg-background text-foreground;
+  }
+
+  #root {
+    @apply h-full;
+  }
+
+  :root {
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+.vibrancy {
+  --content-alpha: 0.85;
+  --card-alpha: var(--content-alpha);
+  --popover-alpha: 1;
+  --primary-alpha: 1;
+  --secondary-alpha: var(--content-alpha);
+  --muted-alpha: var(--content-alpha);
+  --accent-alpha: var(--content-alpha);
+  --destructive-alpha: var(--content-alpha);
+}
+
+/* These colors are picked to mimic the windows 11 mica effect */
+.vibrancy.windows.light {
+  --content-alpha: 0.75;
+  --background: 0 0% 98%;
+  --card: 0 0% 100%;
+  --popover: 0 0% 90%;
+  --primary: 0 0% 11%;
+  --secondary: 0 0% 90%;
+  --muted: 0 0% 90%;
+  --accent: 0 0% 95%;
+  --destructive: 0 68% 42%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 0 0% 10%;
+  --scrollbar: 0 0% 40%;
+  --scrollbar-hover: 0 0% 40%;
+}
+
+.vibrancy.windows.dark {
+  --content-alpha: 0.75;
+  --background: 0 0% 11%;
+  --card: 0 0% 19%;
+  --popover: 0 0% 11%;
+  --primary: 210 20% 98%;
+  --secondary: 0 0% 15%;
+  --muted: 0 0% 15%;
+  --accent: 0 0% 20%;
+  --destructive: 0 68% 42%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 0 0% 100%;
+  --scrollbar: 0 0% 80%;
+  --scrollbar-hover: 0 0% 80%;
+}
+
+.vibrancy.macos.light {
+  --content-alpha: 0.5;
+  --background: 0 0% 93%; /* should be more like 75% but I can't seem to get it to work */
+  --card: 0 0% 93%;
+  --popover: 0 0% 93%;
+  --primary: 240 3% 12%;
+  --secondary: 0 0% 90%;
+  --muted: 0 0% 90%;
+  --accent: 0 0% 95%;
+  --destructive: 3 100% 67%;
+  --border: 0 0% 80%;
+  --input: 0 0% 80%;
+  --ring: 211 100% 50%;
+  --scrollbar: 0 0% 75%;
+  --scrollbar-hover: 0 0% 48%;
+}
+
+.vibrancy.macos.dark {
+  --content-alpha: 0.5;
+  --background: 0 0% 16%;
+  --card: 0 0% 15%;
+  --popover: 0 0% 17%;
+  --primary: 210 20% 98%;
+  --secondary: 0 0% 25%;
+  --muted: 0 0% 25%;
+  --accent: 0 0% 20%;
+  --destructive: 3 100% 67%;
+  --border: 0 0% 31%;
+  --input: 0 0% 31%;
+  --ring: 217 79% 42%;
+  --scrollbar: 0 0% 52%;
+  --scrollbar-hover: 0 0% 63%;
+}
+
+.tauri.windows {
+  scrollbar-color: hsl(var(--scrollbar)) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 12px 12px hsl(var(--scrollbar));
+  border: solid 2px transparent;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: inset 0 0 12px 12px hsl(var(--scrollbar-hover));
+  transition: box-shadow 0.5s;
+}
+
+html.vibrancy,
+.vibrancy body {
+  background: transparent;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

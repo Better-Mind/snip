@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Better Mind</title>
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const theme = localStorage.getItem("vite-ui-theme");
+        const prefersDark = window.matchMedia?.(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const isDark = theme === "dark" || (theme === "system" && prefersDark);
+  
+        root.classList.add(isDark ? "dark" : "light");
+        root.classList.add("group/body");
+  
+        const setBackgroundColor = (color) => {
+          root.style.backgroundColor = color;
+        };
+  
+        const darkColor = "hsl(0, 0%, 11%)";
+        const lightColor = "hsl(0, 0%, 98%)";
+  
+        if (window.isTauri) {
+          root.classList.add("tauri");
+          const platform = window.__TAURI_PLUGIN_OS__.platform();
+          root.classList.add(platform);
+  
+          if (platform === "macos" || platform === "windows") {
+            setBackgroundColor("transparent");
+            root.classList.add("vibrancy");
+          } else {
+            setBackgroundColor(isDark ? darkColor : lightColor);
+          }
+        } else {
+          setBackgroundColor(isDark ? darkColor : lightColor);
+        }
+      })();
+    </script>
+    <style>
+      html.vibrancy,
+      .vibrancy body {
+        background: transparent;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
