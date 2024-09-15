@@ -94,7 +94,7 @@ with as an array of key value pairs. Each key value pair is an object with the k
 - \`type\`: indicate the type of value
 - \`value\`: the value associated with the feature as any value. When the value is a comma separated list, try to display it as an array
 
-Given the conversation history, try to match previously defined features as much as possible. Try to avoid introducing new features.
+Use the same features as previously extracted. Avoid introducing new features.
 
 For example
 {
@@ -135,12 +135,13 @@ export async function imageFeatures(path: string, history: FeatureHistorySchema,
     },
   ]
 
-  let chatHistory = history.map((entry) => ({
+  let _chatHistory = history.map((entry) => ({
     role: "user",
     content: JSON.stringify(entry)
   }));
+  let chatHistory = _chatHistory[0] || [];
 
-  messages.push(...chatHistory);
+  messages.push(chatHistory);
   messages.push({ 
     role: "user",
     content: [
