@@ -44,7 +44,18 @@ function renderCell(cell: Value) {
 }
 
 export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureTableProps) {
-
+  // Extract all unique keys (features) from the datapoints
+  const allFeatures = React.useMemo(() => {
+    const featureSet = new Set<string>()
+    datapoints.forEach(datapoint => {
+      Object.keys(datapoint).forEach(key => {
+        if (!key.startsWith('_')) {
+          featureSet.add(key)
+        }
+      })
+    })
+    return Array.from(['_imagePath', ...featureSet])
+  }, [datapoints])
 	const {currentCategory, setCurrentCategory} = useCurrentCategory();
   // Check if datapoints is empty
   if (currentCategory === "Home") {
@@ -85,18 +96,6 @@ export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureT
     )
   }
 
-  // Extract all unique keys (features) from the datapoints
-  const allFeatures = React.useMemo(() => {
-    const featureSet = new Set<string>()
-    datapoints.forEach(datapoint => {
-      Object.keys(datapoint).forEach(key => {
-        if (!key.startsWith('_')) {
-          featureSet.add(key)
-        }
-      })
-    })
-    return Array.from(['_imagePath', ...featureSet])
-  }, [datapoints])
 
   return (
   <div>

@@ -49,7 +49,7 @@ export function InnerComp() {
 	  return () => {
 		unlisten.then((fn) => fn());
 	  };
-	}, []);
+	}, [currentCategory]);
 
 	useEffect(() => {
 	  const history = historyMap[currentCategory] || [];
