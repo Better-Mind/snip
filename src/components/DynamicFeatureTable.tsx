@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Value } from '@/services/groq.service'
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from './ui/badge'
-import { ArrowUpFromLine, Ellipsis, Star, Aperture, BarChart, Feather, LightbulbIcon, Search } from 'lucide-react'
+import { ArrowUpFromLine, Ellipsis, Star, Aperture, BarChart, Feather, LightbulbIcon, Scissors, Search, Squirrel } from 'lucide-react'
 import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { useCurrentCategory } from './CategoryProvider'
@@ -44,21 +44,22 @@ function renderCell(cell: Value) {
 }
 
 export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureTableProps) {
-  // Check if datapoints is empty
-	const {currentCategory, setCurrentCategory} = useCurrentCategory();
 
-  if (datapoints.length === 0) {
-	const tips = [
-		{ icon: Feather, color: "text-pink-400", text: "Just take a snapshot to get started!" },
-		{ icon: Search, color: "text-sky-400", text: "Source and research carefree!" },
-		{ icon: LightbulbIcon, color: "text-yellow-400", text: "Find it all compiled into a nice table for you!" },
-	  ]
+	const {currentCategory, setCurrentCategory} = useCurrentCategory();
+  // Check if datapoints is empty
+  if (currentCategory === "Home") {
+    const tips = [
+      { icon: Feather, color: "text-pink-400", text: "Just take a snapshot to get started!" },
+      { icon: Search, color: "text-sky-400", text: "Source and research carefree!" },
+      { icon: LightbulbIcon, color: "text-yellow-400", text: "Find it all compiled into a nice table for you!" },
+    ]
     return (
-		<div className="flex flex-col items-center justify-center bg-transparent pt-10">
-			<div className="mb-12">
+		<div className="flex flex-col h-full items-center justify-center bg-transparent pt-10">
+      <Scissors className='w-24 h-24'/>
+			{/* <div className="mb-12">
 				<img src={"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SZHT4oirEmmx4NjQoK2sQkXVcBSbUT.png"} alt={"clip icon"} style={{ width: "200px", height: "200px" }} />
-			</div>
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+			</div> */}
+      <h1 className="scroll-m-20 mt-6 text-4xl font-extrabold tracking-tight lg:text-5xl">
         welcome to snip.
       </h1>
 			<div className="flex flex-wrap justify-center gap-4 w-full max-w-4xl pt-10">
@@ -73,6 +74,15 @@ export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureT
 			</div>
 		</div>
 	)
+  }
+
+  if(datapoints.length === 0) {
+    return (
+      <div className="flex flex-col h-full items-center justify-center bg-transparent pt-10">
+					<Squirrel className={`w-20 h-20 stroke-gray-700 mb-4`} />
+					<p className="text-2xl text-gray-700">It seems like you have nothing here...</p>
+      </div>
+    )
   }
 
   // Extract all unique keys (features) from the datapoints

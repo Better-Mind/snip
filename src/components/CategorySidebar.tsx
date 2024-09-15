@@ -7,9 +7,9 @@ import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { ChevronLeft, ChevronRight, Home, Book, Briefcase, Lightbulb, Music, Film, Coffee, Palette, Plus, Tag } from "lucide-react"
 import { useCurrentCategory } from './CategoryProvider'
+import { Separator } from '@radix-ui/react-dropdown-menu'
 
 const initialCategories = [
-  { name: 'Home', icon: Home },
   { name: 'Education', icon: Book },
   { name: 'Work', icon: Briefcase },
   { name: 'Ideas', icon: Lightbulb },
@@ -39,7 +39,7 @@ export default function CategorySidebar() {
     )}>
       <div className="flex items-center justify-between p-4">
         {!isCollapsed && (
-          <h2 className="text-lg font-semibold">Collections</h2>
+          <h2 className="text-xl font-extrabold">snip.</h2>
         )}
         <Button
           variant="ghost"
@@ -52,6 +52,20 @@ export default function CategorySidebar() {
       </div>
       <ScrollArea className="flex-1">
         <nav className="flex flex-col gap-2 p-2">
+            <Button
+              key="Home"
+              variant={currentCategory === "Home" ? "secondary" : "ghost"}
+              className={cn(
+                "justify-start",
+                isCollapsed ? "w-10 h-10 p-0" : "w-full"
+              )}
+              onClick={() => setCurrentCategory("Home")}
+            >
+              <Home className={cn("h-4 w-4", isCollapsed ? "mx-auto" : "mr-2")} />
+              {!isCollapsed && <span>Home</span>}
+            </Button>
+            <Separator />
+
           {categories.map((category) => (
             <Button
               key={category.name}
