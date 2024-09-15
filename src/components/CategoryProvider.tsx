@@ -12,7 +12,7 @@ export const CurrentCategory = createContext<CurrentCategoryContextType | undefi
 
 // Create a provider component
 export const CurrentCategoryProvider: React.FC<{ children: ReactNode }>  = ({ children }) => {
-  const [currentCategory, setCurrentCategory] = useState("All");
+  const [currentCategory, setCurrentCategory] = useState("Home");
 
   return (
     <CurrentCategory.Provider value={{ currentCategory, setCurrentCategory }}>

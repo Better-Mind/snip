@@ -9,14 +9,10 @@ import { ChevronLeft, ChevronRight, Home, Book, Briefcase, Lightbulb, Music, Fil
 import { useCurrentCategory } from './CategoryProvider'
 
 const initialCategories = [
-  { name: 'All', icon: Home },
+  { name: 'Home', icon: Home },
   { name: 'Education', icon: Book },
   { name: 'Work', icon: Briefcase },
   { name: 'Ideas', icon: Lightbulb },
-  { name: 'Music', icon: Music },
-  { name: 'Movies', icon: Film },
-  { name: 'Lifestyle', icon: Coffee },
-  { name: 'Art', icon: Palette },
 ]
 
 export default function CategorySidebar() {
