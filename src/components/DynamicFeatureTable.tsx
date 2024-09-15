@@ -3,10 +3,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Value } from '@/services/groq.service'
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from './ui/badge'
-import { ArrowUpFromLine, Ellipsis, Star, Aperture, BarChart, Feather, LightbulbIcon, Scissors, Search, Squirrel } from 'lucide-react'
+import { ArrowUpFromLine, Ellipsis, Star, Aperture, BarChart, Feather, LightbulbIcon, Scissors, Search, Squirrel, SquareArrowOutUpLeft } from 'lucide-react'
 import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { useCurrentCategory } from './CategoryProvider'
+import { convertFileSrc } from '@tauri-apps/api/core'
 
 type DataPoint = Record<string, Value>
 
@@ -18,7 +19,24 @@ function isStringArray(value: any): value is string[] {
   return Array.isArray(value) && value.every(item => typeof item === 'string');
 }
 
-function renderCell(cell: Value) {
+function isString(value: any): value is string {
+  return typeof value == 'string';
+}
+
+function renderHeader(key: string) {
+  if (key == "_imagePath") {
+    return "Item"
+  }
+  return key
+}
+
+function renderCell(key: string, cell: Value) {
+  if (key == '_imagePath' && isString(cell)) {
+    const imgPath = convertFileSrc(cell);
+    return (
+      <img src={imgPath}/>
+    )
+  }
   switch (typeof cell) {
     case 'string':
       return cell;
@@ -103,7 +121,7 @@ export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureT
     <div className="justify-end shrink-0 mt-1 mx-1">
       <div className="flex flex-row justify-end">
         <Button className="px-2" variant="link">
-          <ArrowUpFromLine className="h-4 w-4 pr-1" />
+          <SquareArrowOutUpLeft className="h-4 w-4 pr-1" />
           Export
         </Button>
         <Button className="px-2" variant="link">
@@ -130,7 +148,7 @@ export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureT
               <TableRow>
                 {allFeatures.map(feature => (
                   <TableHead key={feature} className="px-4 py-2">
-                    {feature}
+                    {renderHeader(feature)}
                   </TableHead>
                 ))}
               </TableRow>
@@ -140,7 +158,7 @@ export default function DynamicFeatureTable({ datapoints = [] }: DynamicFeatureT
                 <TableRow key={index}>
                   {allFeatures.map(feature => (
                     <TableCell key={feature} className="px-4 py-2">
-                      {renderCell(datapoint[feature])}
+                      {renderCell(feature, datapoint[feature])}
                     </TableCell>
                   ))}
                 </TableRow>
